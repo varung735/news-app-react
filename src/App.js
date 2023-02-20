@@ -1,20 +1,28 @@
 import axios from 'axios';
 import { useState } from 'react';
 import News from "./components/News.jsx";
+import SideNav from "./components/SideNav";
 import './App.css';
 
 function App() {
 
-  const API = process.env.REACT_APP_API_KEY;
-  axios.defaults.baseURL = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${API}`;
-
   const [issideOpen, setsideOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [isCategoryOpen, setCategoryOpen] = useState(false);
+  const [category, setCategory] = useState("general");
+  const [country, setCountry] = useState("in");
 
-  const countries = [];
-  const categories = ["business", "entertainment", "health", "science", "sports", "Technology", "general"];
+  const API = process.env.REACT_APP_API_KEY;
+  axios.defaults.baseURL = `https://newsapi.org/v2/top-headlines?country=${country}&category${category}&apiKey=${API}`;
+
+  // call back function to get data from side bar component
+  const setCategoryData = (category) => {
+      setCategory(category);
+      console.log(category);
+    }
+    
+  const setCountryData = (country) => {
+      setCountry(country);
+      console.log(country);
+  }
 
   return (
     <>
@@ -22,7 +30,7 @@ function App() {
 
           {/* This div below contains navbar */}
           <div className='navbar'>
-            <img src='/images/bars.svg' alt='bars.svg' className='bars-img'/>
+            <img src='/images/bars.svg' alt='bars.svg' className='bars-img' onClick={(event) => {setsideOpen(!issideOpen)}}/>
             <h1 className='title'>Newsify</h1>
           </div>
 
@@ -30,41 +38,10 @@ function App() {
           <div className='content'>
 
               {/* side-nav */}
-              <div className='side-nav'>
-                <div className='side-nav-link'>
-
-                  <div className='link'>
-                    <h2 className='side-nav-title'>Categories</h2>
-                    <img src='/images/down.svg' alt='/images/down.svg' className='side-nav-icon' onClick={(event) => {setIsLangOpen(!isLangOpen)}}/>
-                  </div>
-
-                  <div className='accordion'>
-                    {isLangOpen && categories.map((category) => {
-                        return <div className='item'><h2>{category}</h2></div>
-                    })}
-                  </div>
-
-                </div>
-
-                <div className='side-nav-link'>
-
-                  <div className='link'>
-                    <h2 className='side-nav-title'>Country</h2>
-                    <img src='/images/down.svg' alt='/images/down.svg' className='side-nav-icon'/>
-                  </div>
-
-                  <div className='accordion'>
-                    {/* {isOpen && categories.map((category) => {
-                        return <div className='item'><h2>{category}</h2></div>
-                    })} */}
-                  </div>
-
-                </div>
-
-              </div>
+              {issideOpen && <SideNav categoryProp={()=>setCategoryData} countryProp={()=>setCountryData}/>}
 
               {/* content */}
-              <div className='news-cards'>
+              <div className='news-cards' style={issideOpen ? {width: "100%"} : {className: "news-cards"}}>
                 <News />
               </div>
           </div>
