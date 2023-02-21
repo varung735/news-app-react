@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import NewsProp from "./NewsProp.jsx";
 
-function News() {
+function News({articles}) {
 
-  const [article, setArticle] = useState();
-
-  useEffect(() => {
-    axios.get().then(response => setArticle(...[response.data.articles])).catch(error => console.log(error));
-  }, [])
+  console.log(articles);
 
   return (
     <>
-      {article && article.map((article) => {
+      {articles && articles.map((article) => {
         return <NewsProp article={article} />
       })}
     </>

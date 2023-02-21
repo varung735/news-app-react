@@ -48,8 +48,8 @@
     height: 100%;
     width: 20%;
     border-right: 1px solid #000;
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .side-nav-link{
@@ -168,5 +168,7 @@
 .author{
     margin-top: 6%;
     margin-bottom: 3%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 

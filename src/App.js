@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import News from "./components/News.jsx";
 import SideNav from "./components/SideNav";
 import './App.css';
@@ -9,19 +9,28 @@ function App() {
   const [issideOpen, setsideOpen] = useState(false);
   const [category, setCategory] = useState("general");
   const [country, setCountry] = useState("in");
+  const [article, setArticle] = useState([]);
 
   const API = process.env.REACT_APP_API_KEY;
-  axios.defaults.baseURL = `https://newsapi.org/v2/top-headlines?country=${country}&category${category}&apiKey=${API}`;
+  axios.defaults.baseURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${API}`;
+  
+  useEffect(() => {
+    axios.get().then(response => setArticle(...[response.data.articles])).catch(error => console.log(error));
+  }, [category, country])
 
-  // call back function to get data from side bar component
-  const setCategoryData = (category) => {
-      setCategory(category);
-      console.log(category);
+  console.log(axios.defaults.baseURL);
+  console.log(article);
+
+  const getData = (data) => {
+    console.log("data args : " + data);
+    if(data.length <= 2){
+      console.log(data.length);
+      setCountry(data);
+      console.log("country useState Value : " + country);
+    }else{
+      setCategory(data);
+      console.log("category useState Value : " + category);
     }
-    
-  const setCountryData = (country) => {
-      setCountry(country);
-      console.log(country);
   }
 
   return (
@@ -38,11 +47,11 @@ function App() {
           <div className='content'>
 
               {/* side-nav */}
-              {issideOpen && <SideNav categoryProp={()=>setCategoryData} countryProp={()=>setCountryData}/>}
+              {issideOpen && <SideNav childData={getData} />}
 
               {/* content */}
               <div className='news-cards' style={issideOpen ? {width: "100%"} : {className: "news-cards"}}>
-                <News />
+                <News articles={article}/>
               </div>
           </div>
 

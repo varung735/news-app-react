@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 
-function SideNav({categoryProp,countryProp}) {
-
-  console.log(categoryProp);
-  console.log(countryProp);
+function SideNav({ childData }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isCountriesOpen, setIsCountriesOpen] = useState(false);
@@ -34,7 +31,7 @@ function SideNav({categoryProp,countryProp}) {
 
         {isOpen && <div className='child-links'>
           {categories && categories.map((category) => {
-            return <div className='child-link' onClick={() => {categoryProp(category)}}>
+            return <div className='child-link' onClick={(event) => {childData(category)}}>
               <h4 className='link-title text-align'>{category}</h4>
             </div>
           })}
@@ -51,7 +48,7 @@ function SideNav({categoryProp,countryProp}) {
 
         {isCountriesOpen && <div className='child-links'>
           {countries && countries.map((country) => {
-            return <div className='child-link' onClick={()=>{countryProp(country.code)}}>
+            return <div className='child-link' onClick={(event)=>{childData(country.code)}}>
               <h4 className='link-title text-align'>{country.country}</h4>
             </div>
           })}
