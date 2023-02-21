@@ -2,8 +2,6 @@ import NewsProp from "./NewsProp.jsx";
 
 function News({articles}) {
 
-  console.log(articles);
-
   return (
     <>
       {articles && articles.map((article) => {

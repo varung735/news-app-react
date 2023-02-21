@@ -16,20 +16,14 @@ function App() {
   
   useEffect(() => {
     axios.get().then(response => setArticle(...[response.data.articles])).catch(error => console.log(error));
-  }, [category, country])
-
-  console.log(axios.defaults.baseURL);
-  console.log(article);
+  }, [category, country]);
 
   const getData = (data) => {
     console.log("data args : " + data);
     if(data.length <= 2){
-      console.log(data.length);
       setCountry(data);
-      console.log("country useState Value : " + country);
     }else{
       setCategory(data);
-      console.log("category useState Value : " + category);
     }
   }
 
