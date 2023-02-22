@@ -13,8 +13,8 @@ function SideNav({ childData }) {
     {"country": "Ireland", "code": "ie"},
     {"country": "Czech Republic", "code": "cz"},
     {"country": "Russia", "code": "ru"},
-    {"country": "USA", "code": "ua"},
-    {"country": "Ukraine", "code": "us"},
+    {"country": "USA", "code": "us"},
+    {"country": "Ukraine", "code": "ua"},
     {"country": "Sweden", "code": "se"},
   ];
   const categories = ["business", "entertainment", "health", "science", "sports", "Technology", "general"];
