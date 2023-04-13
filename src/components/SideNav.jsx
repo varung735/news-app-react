@@ -17,7 +17,7 @@ function SideNav({ childData }) {
     {"country": "Ukraine", "code": "ua"},
     {"country": "Sweden", "code": "se"},
   ];
-  const categories = ["business", "entertainment", "health", "science", "sports", "Technology", "general"];
+  const categories = ["business", "entertainment", "health", "science", "sports", "technology", "top"];
 
   return (
     <div className='side-nav'>

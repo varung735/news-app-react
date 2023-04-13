@@ -7,15 +7,15 @@ import './App.css';
 function App() {
 
   const [issideOpen, setsideOpen] = useState(false);
-  const [category, setCategory] = useState("general");
+  const [category, setCategory] = useState("top");
   const [country, setCountry] = useState("in");
   const [article, setArticle] = useState([]);
 
   const API = process.env.REACT_APP_API_KEY;
-  axios.defaults.baseURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${API}`;
+  axios.defaults.baseURL = `https://newsdata.io/api/1/news?apikey=${API}&country=${country}&category=${category}`;
   
   useEffect(() => {
-    axios.get().then(response => setArticle(...[response.data.articles])).catch(error => console.log(error));
+    axios.get().then(response => setArticle(...[response.data.results])).catch(error => console.log(error));
   }, [category, country]);
 
   const getData = (data) => {
